@@ -66,6 +66,8 @@ flutter:
     - assets/Vacuum Cleaner.jpeg
     - assets/Washing Machine.jpeg
     - assets/TV.jpg
+    - assets/rice_cooker.jpeg
+    - assets/kettle.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

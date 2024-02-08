@@ -16,7 +16,7 @@ class SelectAppliance extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.fromLTRB(0, 25.0, 0,20),
+                padding: const EdgeInsets.fromLTRB(0, 25.0, 0, 20),
                 child: const Icon(
                   Icons.arrow_back_ios,
                 ),
@@ -32,52 +32,42 @@ class SelectAppliance extends StatelessWidget {
             ],
           ),
         ),
-        ),
-
+      ),
       body: GridView.count(
         crossAxisCount: 2,
         padding: const EdgeInsets.all(16),
         mainAxisSpacing: 16,
         crossAxisSpacing: 16,
         children: <Widget>[
-          buildCard(context, 'Air Conditioner',
-              'assets/Air Conditioner.jpg'),
-          buildCard(
-              context, 'Iron', 'assets/Iron.jpg'),
-          buildCard(context, 'Kitchen Stove',
-              'assets/Kitchen Stove.jpeg'),
-          buildCard(context, 'Lighting',
-              'assets/Lighting.jpeg'),
-          buildCard(context, 'Refrigerator',
-              'assets/Refrigerators.jpg'),
-          buildCard(context, 'Television',
-              'assets/TV.jpg'),
-          buildCard(context, 'Vacuum Cleaner',
-              'assets/Vacuum Cleaner.jpeg'),
-          buildCard(context, 'Washing Machine',
-              'assets/Washing Machine.jpeg'),
+          // buildCard(context, 'Air Conditioner', 'assets/Air Conditioner.jpg'),
+          // buildCard(context, 'Iron', 'assets/Iron.jpg'),
+          // buildCard(context, 'Kitchen Stove', 'assets/Kitchen Stove.jpeg'),
+          // buildCard(context, 'Lighting', 'assets/Lighting.jpeg'),
+          buildCard(context, 'Refrigerator', 'assets/Refrigerators.jpg'),
+          // buildCard(context, 'Television', 'assets/TV.jpg'),
+          // buildCard(context, 'Vacuum Cleaner', 'assets/Vacuum Cleaner.jpeg'),
+          buildCard(context, 'Washing Machine', 'assets/Washing Machine.jpeg'),
+          buildCard(context, 'Rice Cooker', 'assets/rice_cooker.jpeg'),
+          buildCard(context, 'kettle', 'assets/kettle.jpeg'),
         ],
       ),
     );
   }
 
-  Widget buildCard(BuildContext context,
-      String title, String imagePath) {
+  Widget buildCard(BuildContext context, String title, String imagePath) {
     return InkWell(
       onTap: () {
         // Navigate to a new page
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                ApplianceDetail (title, imagePath),
+            builder: (context) => ApplianceDetail(title, imagePath),
           ),
         );
       },
       child: Card(
         child: Column(
-          crossAxisAlignment:
-          CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Flexible(
               child: Image.asset(
@@ -90,15 +80,12 @@ class SelectAppliance extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               child: Column(
-                crossAxisAlignment:
-                CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     title,
                     style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight:
-                        FontWeight.bold),
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
