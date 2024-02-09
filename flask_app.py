@@ -133,7 +133,7 @@
 # if __name__ == '__main__':
 #     app.run(debug=True)
 
-from flask import Flask, request
+from flask import Flask, jsonify
 from azure.cosmos import CosmosClient
 import csv
 import threading
@@ -191,6 +191,66 @@ csv_thread.start()
 # @app.route('/api/data4', methods=['POST'])
 # def receive_data():
 #     # Your existing endpoint handling logic here...
+
+@app.route('/')
+def welcome():
+    return 'Welcome to the Power Telemetry API'
+
+
+@app.route('/appliances/<device_name>', methods=['GET'])
+def index(device_name):
+    try:
+        print("getData")
+        # Get the container client
+        container_client = database.get_container_client(device_name)
+
+        # Query all items in the container
+        items = list(container_client.query_items(
+            query="SELECT * FROM c",
+            enable_cross_partition_query=True
+        ))
+
+        print('items found')
+        
+        # Check if any items were retrieved
+        if not items:
+            return jsonify({"error": "No items found in the container"}), 404
+
+        json_data = []
+        for i in range(500, 511):
+            item = items[i]
+            
+            # print(f'item: {item}')
+            if 'timestamp' not in item:
+                # return jsonify({"error": "Missing 'timestamp' or 'data' field in the document"}), 500
+                print('Missing timestamp in the document')
+                continue
+
+            if 'data' not in item:
+                # return jsonify({"error": "Missing 'data' field in the document"}), 500
+                print('Missing data field in the document')
+                continue
+
+            if 'time' not in item:
+                # return jsonify({"error": "Missing 'timestamp' or 'data' field in the document"}), 500
+                print('Missing time in the document')
+                continue
+
+            print(item['time'])
+
+            json_file = {
+                'date': item['time'],
+                'data': item['data']
+            }
+            print(f'json_file: {json_file}')
+            json_data.append(json_file)
+
+        # Return the items as JSON
+        return jsonify(json_data)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/api/delete_items/<container_name>', methods=['DELETE'])
 def delete_items(container_name):

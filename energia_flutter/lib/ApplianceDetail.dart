@@ -1,3 +1,4 @@
+import '../Components/Charts.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -130,14 +131,14 @@ class ApplianceDetail extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    title,
+                    'Power Consumption by $title',
                     style: const TextStyle(
                       fontSize: 20,
-                      fontWeight: FontWeight.bold,
+
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text("Appliance Details"),
+                  LineChartSample(),
                 ],
               ),
             ),

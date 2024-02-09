@@ -1,6 +1,7 @@
 import '../SelectAppliance.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import '../Components/Charts.dart';
 
 class NavigationExample extends StatefulWidget {
   const NavigationExample({super.key});
@@ -43,121 +44,122 @@ class _NavigationExampleState extends State<NavigationExample> {
       body: <Widget>[
         /// Home page
 
-        Stack(
-          children: [
-            // Create a full-screen black container with opacity to simulate a border
-            Container(
-              color: Colors.black.withOpacity(0.2),
-              width: double.infinity,
-              height: double.infinity,
-            ),
-            Center(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 2),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: SizedBox(
-                    height: 350.0,
-                    child: LineChart(
-                      LineChartData(
-                        gridData: FlGridData(
-                          show: true,
-                          drawHorizontalLine: true,
-                          drawVerticalLine: true,
-                          horizontalInterval: 1,
-                          verticalInterval: 1,
-                          getDrawingHorizontalLine: (value) {
-                            return FlLine(
-                              color: Colors.grey,
-                              strokeWidth: 0.5,
-                            );
-                          },
-                          getDrawingVerticalLine: (value) {
-                            return FlLine(
-                              color: Colors.grey,
-                              strokeWidth: 0.5,
-                            );
-                          },
-                        ),
-                        titlesData: FlTitlesData(
-                          show: true,
-                          bottomTitles: SideTitles(
-                            showTitles: true,
-                            reservedSize: 22,
-                            getTextStyles: (value) => const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                            getTitles: (value) {
-                              switch (value.toInt()) {
-                                case 0:
-                                  return '12.00';
-                                case 1:
-                                  return '1.00';
-                                case 2:
-                                  return '2.00';
-                                case 3:
-                                  return '3.00';
-                                case 4:
-                                  return '4.00';
-                                default:
-                                  return '';
-                              }
-                            },
-                            margin: 8,
-                          ),
-                          leftTitles: SideTitles(
-                            showTitles: true,
-                            reservedSize: 28,
-                            getTextStyles: (value) => const TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                            ),
-                            getTitles: (value) {
-                              switch (value.toInt()) {
-                                case 1:
-                                  return '';
-                                case 2:
-                                  return '200 Wh';
-                                case 3:
-                                  return '300 Wh';
-                                default:
-                                  return '';
-                              }
-                            },
-                            margin: 12,
-                          ),
-                        ),
-                        borderData: FlBorderData(show: false),
-                        lineBarsData: [
-                          LineChartBarData(
-                            spots: [
-                              FlSpot(0, 1),
-                              FlSpot(1, 2),
-                              FlSpot(2, 1.5),
-                              FlSpot(3, 3),
-                              FlSpot(4, 2),
-                            ],
-                            isCurved: true,
-                            colors: [Colors.blue],
-                            barWidth: 4,
-                            isStrokeCapRound: true,
-                            belowBarData: BarAreaData(show: false),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+        // Stack(
+        //   children: [
+        //     // Create a full-screen black container with opacity to simulate a border
+        //     Container(
+        //       color: Colors.black.withOpacity(0.2),
+        //       width: double.infinity,
+        //       height: double.infinity,
+        //     ),
+        //     Center(
+        //       child: DecoratedBox(
+        //         decoration: BoxDecoration(
+        //           border: Border.all(color: Colors.black, width: 2),
+        //           borderRadius: BorderRadius.circular(15),
+        //         ),
+        //         child: Padding(
+        //           padding: const EdgeInsets.all(15.0),
+        //           child: SizedBox(
+        //             height: 350.0,
+        //             child: LineChart(
+        //               LineChartData(
+        //                 gridData: FlGridData(
+        //                   show: true,
+        //                   drawHorizontalLine: true,
+        //                   drawVerticalLine: true,
+        //                   horizontalInterval: 1,
+        //                   verticalInterval: 1,
+        //                   getDrawingHorizontalLine: (value) {
+        //                     return const FlLine(
+        //                       color: Colors.grey,
+        //                       strokeWidth: 0.5,
+        //                     );
+        //                   },
+        //                   getDrawingVerticalLine: (value) {
+        //                     return FlLine(
+        //                       color: Colors.grey,
+        //                       strokeWidth: 0.5,
+        //                     );
+        //                   },
+        //                 ),
+        //                 titlesData: FlTitlesData(
+        //                   show: true,
+        //                   bottomTitles: SideTitles(
+        //                     showTitles: true,
+        //                     reservedSize: 22,
+        //                     getTextStyles: (value) => const TextStyle(
+        //                       color: Colors.black,
+        //                       fontWeight: FontWeight.bold,
+        //                       fontSize: 14,
+        //                     ),
+        //                     getTitles: (value) {
+        //                       switch (value.toInt()) {
+        //                         case 0:
+        //                           return '12.00';
+        //                         case 1:
+        //                           return '1.00';
+        //                         case 2:
+        //                           return '2.00';
+        //                         case 3:
+        //                           return '3.00';
+        //                         case 4:
+        //                           return '4.00';
+        //                         default:
+        //                           return '';
+        //                       }
+        //                     },
+        //                     margin: 8,
+        //                   ),
+        //                   leftTitles: SideTitles(
+        //                     showTitles: true,
+        //                     reservedSize: 28,
+        //                     getTextStyles: (value) => const TextStyle(
+        //                       color: Colors.black,
+        //                       fontWeight: FontWeight.bold,
+        //                       fontSize: 14,
+        //                     ),
+        //                     getTitles: (value) {
+        //                       switch (value.toInt()) {
+        //                         case 1:
+        //                           return '';
+        //                         case 2:
+        //                           return '200 Wh';
+        //                         case 3:
+        //                           return '300 Wh';
+        //                         default:
+        //                           return '';
+        //                       }
+        //                     },
+        //                     margin: 12,
+        //                   ),
+        //                 ),
+        //                 borderData: FlBorderData(show: false),
+        //                 lineBarsData: [
+        //                   LineChartBarData(
+        //                     spots: [
+        //                       FlSpot(0, 1),
+        //                       FlSpot(1, 2),
+        //                       FlSpot(2, 1.5),
+        //                       FlSpot(3, 3),
+        //                       FlSpot(4, 2),
+        //                     ],
+        //                     isCurved: true,
+        //                     colors: [Colors.blue],
+        //                     barWidth: 4,
+        //                     isStrokeCapRound: true,
+        //                     belowBarData: BarAreaData(show: false),
+        //                   ),
+        //                 ],
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        LineChartSample(),
 
         const Padding(
           padding: EdgeInsets.all(8.0),
@@ -222,7 +224,7 @@ class _NavigationExampleState extends State<NavigationExample> {
         //     );
         //   },
         // ),
-        SelectAppliance(),
+        const SelectAppliance(),
       ][currentPageIndex],
     );
   }
