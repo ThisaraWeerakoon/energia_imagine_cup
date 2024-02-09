@@ -175,7 +175,7 @@ def read_csv_and_send_to_cosmos():
                             'data': row[column_name]
                         }
                         database.get_container_client(container_client).create_item(item)
-                        print(f"Sent data to {container_client} - Id: {item['id']}, Time: {item['time']}, Data: {item['data']}")
+                        # print(f"Sent data to {container_client} - Id: {item['id']}, Time: {item['time']}, Data: {item['data']}")
 
         # Sleep for a specified interval (e.g., 1 hour)
         time.sleep(6000)
@@ -191,6 +191,30 @@ csv_thread.start()
 # @app.route('/api/data4', methods=['POST'])
 # def receive_data():
 #     # Your existing endpoint handling logic here...
+
+@app.route('/api/delete_items/<container_name>', methods=['DELETE'])
+def delete_items(container_name):
+    try:
+        print("delete_items")
+        # Get the container client
+        container_client = database.get_container_client(container_clients.get(container_name))
+
+        # Query all items in the container
+        items = list(container_client.query_items(
+            query="SELECT * FROM c",
+            enable_cross_partition_query=True
+        ))
+
+        # Delete each item in the container
+        for item in items:
+            container_client.delete_item(item, partition_key=item['id'])
+
+        return jsonify({"message": f"All items in container {container_name} deleted successfully"})
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

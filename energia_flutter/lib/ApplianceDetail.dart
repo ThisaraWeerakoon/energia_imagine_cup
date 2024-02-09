@@ -1,5 +1,60 @@
 import 'package:flutter/material.dart';
 
+import 'package:http/http.dart' as http;
+
+void deleteItems(BuildContext context, String containerName) async {
+  final backendUrl =
+      'http://127.0.0.1:5000/api/delete_items/$containerName'; // Replace with your actual backend URL
+
+  try {
+    final response = await http.delete(Uri.parse(backendUrl));
+
+    if (response.statusCode == 200) {
+      // Items deleted successfully, you can show a success message or perform other actions
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Success"),
+            content: Text(
+                "All items in container $containerName deleted successfully."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context); // Close the dialog
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Deletion failed, show an error dialog or handle accordingly
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Deletion Error"),
+            content: Text("Failed to delete items. Please try again."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context); // Close the dialog
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  } catch (error) {
+    // Handle any network or other errors
+    print("Error: $error");
+  }
+}
+
 class ApplianceDetail extends StatelessWidget {
   final String title;
   final String imagePath;
@@ -14,6 +69,10 @@ class ApplianceDetail extends StatelessWidget {
 
     // Placeholder example using print statement
     print("Connect button clicked! Make backend call here.");
+
+// Call this function where you want to trigger the delete action, for example, in a button onPressed callback
+    deleteItems(context,
+        'device_1'); // Replace 'your_container_name' with the actual container name
 
     // You can also navigate to another screen or show a dialog based on the backend response
   }
