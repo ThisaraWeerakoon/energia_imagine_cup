@@ -62,19 +62,50 @@ class ApplianceDetail extends StatelessWidget {
   ApplianceDetail(this.title, this.imagePath);
 
   // Function to handle the Connect button click
-  void connectButtonClicked(BuildContext context) {
-    // Add your backend call logic here
-    // For example, you can use a package like http to make an HTTP request
-    // You can also use other methods like Dio, Chopper, etc.
+//   void connectButtonClicked(BuildContext context) {
+//     // Add your backend call logic here
+//     // For example, you can use a package like http to make an HTTP request
+//     // You can also use other methods like Dio, Chopper, etc.
 
-    // Placeholder example using print statement
-    print("Connect button clicked! Make backend call here.");
+//     // Placeholder example using print statement
+//     print("Connect button clicked! Make backend call here.");
 
-// Call this function where you want to trigger the delete action, for example, in a button onPressed callback
-    // deleteItems(context,
-    //     'device_1'); // Replace 'your_container_name' with the actual container name
+// // Call this function where you want to trigger the delete action, for example, in a button onPressed callback
+//     // deleteItems(context,
+//     //     'device_1'); // Replace 'your_container_name' with the actual container name
 
-    // You can also navigate to another screen or show a dialog based on the backend response
+//     // You can also navigate to another screen or show a dialog based on the backend response
+//   }
+
+  Future<void> connectButtonClicked(BuildContext context) async {
+    final backendUrl =
+        'http://10.10.12.178/api/hello_world'; // Replace with your actual backend URL
+
+    try {
+      final response = await http.post(
+        Uri.parse(backendUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: '{"message": "Hello, World!"}',
+      );
+
+      if (response.statusCode == 200) {
+        // Successful response from the backend
+        print("Backend response: ${response.body}");
+
+        // Add your logic here based on the backend response
+        // For example, show a success message or navigate to another screen
+      } else {
+        // Handle unsuccessful response from the backend
+        print("Backend error: ${response.statusCode}");
+
+        // You can show an error message or handle it accordingly
+      }
+    } catch (error) {
+      // Handle any network or other errors
+      print("Error: $error");
+    }
   }
 
   @override
